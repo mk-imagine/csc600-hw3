@@ -1,0 +1,5 @@
+.conda_config
+*.js
+.vscode
+.DS_Store
+node_modules

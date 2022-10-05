@@ -43,7 +43,7 @@ https://docs.google.com/document/d/1RJ66oXuASPTlm4Oc040oKW7Gt9L6Qs5ceV5QE3Trpdo/
 ** ============================================================================ */
 
 export const HONOR_PLEDGE = "I pledge on my honor that this assignment is my own work.";
-export const SIGNATURE = "<your-full-name-here>"; // TODO: FILL ME IN
+export const SIGNATURE = "Mark Kim"; // TODO: FILL ME IN
 
 // If you used resources, please list them here
 export const RESOURCES_CONSULTED = [
@@ -116,9 +116,19 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function splitArrayOnce<T>(arr: T[]): [T[], T[]] {
-    throw Error("TODO");
+    // throw Error("TODO");
+    if (arr.length === 0) {
+        return [[],[]];
+    }
+    const left = Math.ceil(arr.length/2);
+    return [ arr.slice(0,left), arr.slice(left) ];
 }
 
+// console.log(splitArrayOnce([]));
+// console.log(splitArrayOnce([1]));
+// console.log(splitArrayOnce(["hello", "world"]));
+// console.log(splitArrayOnce(["csc600", "is", "fun"]));
+// console.log(splitArrayOnce([3, 2, 1, 4]));
 
 /* ----------------------------------------------------- **
 ### Problem 1b (10 pts):
@@ -157,9 +167,14 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function splitArrayTwice<T>(arr: T[]): [[T[], T[]], [T[], T[]]] {
-    throw Error("TODO");
+    return [ splitArrayOnce(splitArrayOnce(arr)[0]), splitArrayOnce(splitArrayOnce(arr)[1]) ]
 }
 
+// console.log(splitArrayTwice([]));
+// console.log(splitArrayTwice([1]));
+// console.log(splitArrayTwice(["hello", "world"]));
+// console.log(splitArrayTwice(["csc600", "is", "fun"]));
+// console.log(splitArrayTwice([3, 2, 1, 4]));
 
 /* ==========================================================================  **
 ## Problem 2: Recursive functions with arrays (25 pts)
@@ -313,10 +328,20 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function splitArray<T>(arr: T[]): NestedArray<T> {
-    throw Error("TODO");
+    switch (arr.length) {
+        case 0: return mkNALeaf();
+        case 1: return mkNANode(arr.pop() as T, mkNALeaf(), mkNALeaf());
+        default:
+            const arr1 = splitArrayOnce(arr);
+            return mkNANode( arr1[0].pop() as T, splitArray(arr1[0]), splitArray(arr1[1]) );
+    }
 }
 
-
+// console.log(splitArray([]));
+// console.log(splitArray([1]));
+// console.log(splitArray(["hello", "world"]));
+// console.log(splitArray(["csc600", "is", "fun"]));
+// test with jest
 
 /* ==========================================================================  **
 ## Problem 3: Recursive functions with trees (55 pts)
@@ -470,8 +495,17 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function heightNaryTree<T>(naTr: NaryTree<T>): number {
-    throw Error("TODO");
+    if (naTr.tag === "LEAF") return 0;
+    if (naTr.firstChild.tag === "LEAF") return 1;
+    if (naTr.restChildren.length === 0) return heightNaryTree(naTr.firstChild) + 1;
+    return heightNaryTree(naTr.restChildren.pop() as NaryTree<T>) + 1;
 }
+
+console.log(heightNaryTree(ntr1));
+console.log(heightNaryTree(ntr2));
+console.log(heightNaryTree(ntr3));
+console.log(heightNaryTree(ntr4));
+console.log(heightNaryTree(ntr5));
 
 
 /* ----------------------------------------------------- **
