@@ -37,7 +37,6 @@ https://docs.google.com/document/d/1RJ66oXuASPTlm4Oc040oKW7Gt9L6Qs5ceV5QE3Trpdo/
 
 ** ============================================================================ */
 
-
 /* ==========================================================================  **
 ## Honor Pledge
 ** ============================================================================ */
@@ -423,16 +422,16 @@ export function mkNaryNode<T>(contents: T, children: NaryTree<T>[]): NaryTree<T>
     }
 }
 
-const ntr1 : NaryTree<number> =
+export const ntr1 : NaryTree<number> =
     mkNaryLeaf();
 
-const ntr2 =
+export const ntr2 =
     mkNaryNode(
         1,
         []
     );
 
-const ntr3 =
+export const ntr3 =
     mkNaryNode(
         1,
         [
@@ -440,7 +439,7 @@ const ntr3 =
         ]
     );
 
-const ntr4 =
+export const ntr4 =
     mkNaryNode(
         1,
         [
@@ -449,7 +448,7 @@ const ntr4 =
         ]
     );
 
-const ntr5 =
+export const ntr5 =
     mkNaryNode(
         1,
         [
@@ -461,7 +460,7 @@ const ntr5 =
                     mkNaryNode(
                         5, 
                         [
-                            mkNaryNode(6, []),
+                            mkNaryNode(6, [mkNaryNode(7,[])]),
                         ]),
                 ]
             )
@@ -495,17 +494,21 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function heightNaryTree<T>(naTr: NaryTree<T>): number {
-    if (naTr.tag === "LEAF") return 0;
-    if (naTr.firstChild.tag === "LEAF") return 1;
-    if (naTr.restChildren.length === 0) return heightNaryTree(naTr.firstChild) + 1;
-    return heightNaryTree(naTr.restChildren.pop() as NaryTree<T>) + 1;
+    switch (naTr.tag) {
+        case "LEAF": return 0;
+        case "NODE":
+            let heightArr: number[] = [];
+            heightArr.push(heightNaryTree(naTr.firstChild));
+            naTr.restChildren.map(x => heightArr.push(heightNaryTree(x)));
+            return Math.max(...heightArr) + 1;
+    }
 }
 
-console.log(heightNaryTree(ntr1));
-console.log(heightNaryTree(ntr2));
-console.log(heightNaryTree(ntr3));
-console.log(heightNaryTree(ntr4));
-console.log(heightNaryTree(ntr5));
+// console.log(heightNaryTree(ntr1));
+// console.log(heightNaryTree(ntr2));
+// console.log(heightNaryTree(ntr3));
+// console.log(heightNaryTree(ntr4));
+// console.log(heightNaryTree(ntr5));
 
 
 /* ----------------------------------------------------- **
@@ -561,9 +564,22 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function mapNaryTree<T, U>(naTr: NaryTree<T>, f: (arg: T) => U): NaryTree<U> {
-    throw Error("TODO");
+    switch (naTr.tag) {
+        case "LEAF": return mkNALeaf() as NaryTree<U>;
+        case "NODE":
+            const childArr: NaryTree<U>[] = [];
+            childArr.push(mapNaryTree(naTr.firstChild, f));
+            naTr.restChildren.map(x => childArr.push(mapNaryTree(x,f)));
+            return mkNaryNode(f(naTr.contents), childArr);
+    }
 }
 
+//   console.log(mapNaryTree(ntr1, (x) => x + 1));
+//   console.log(mapNaryTree(ntr2, (x) => x + 1));
+//   console.log(mapNaryTree(ntr3, (x) => 2*x));
+//   console.log(mapNaryTree(ntr4, (x) => 1));
+//   const tr = mapNaryTree(ntr5, (x) => x + 2);
+//   console.log(tr);
 
 /* ----------------------------------------------------- **
 ### Problem 3c (20 pts):
@@ -629,5 +645,12 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function nestedArrayToNaryTree<T>(na: NestedArray<T>): NaryTree<T> {
-    throw Error("TODO");
+    const childArr: NaryTree<T>[] = [];
+    switch (na.tag) {
+        case "LEAF": return mkNaryLeaf();
+        case "NODE":
+            childArr.push(nestedArrayToNaryTree(na.left));
+            childArr.push(nestedArrayToNaryTree(na.right));
+            return mkNaryNode(na.contents, childArr);
+    }
 }
