@@ -66,11 +66,11 @@ Example queries:
 ** ============================================================================ */
 
 export const GOOGLE_QUERIES: {[id: string]: string[]} = {
-    "1a": [],
-    "1b": [],
+    "1a": ['math ceiling typescript', 'array slice typescript'],
+    "1b": ['array pop typescript'],
     "2": [],
-    "3a": [],
-    "3b": [],
+    "3a": ['array push typescript', 'max typescript'],
+    "3b": ['map filter reduce typescript'],
     "3c": [],
     "bonus": [],
 }; 
@@ -645,10 +645,10 @@ Example 5:
 ** ----------------------------------------------------- */
 
 export function nestedArrayToNaryTree<T>(na: NestedArray<T>): NaryTree<T> {
-    const childArr: NaryTree<T>[] = [];
     switch (na.tag) {
         case "LEAF": return mkNaryLeaf();
         case "NODE":
+            const childArr: NaryTree<T>[] = [];
             childArr.push(nestedArrayToNaryTree(na.left));
             childArr.push(nestedArrayToNaryTree(na.right));
             return mkNaryNode(na.contents, childArr);
