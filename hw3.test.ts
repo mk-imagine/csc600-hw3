@@ -73,6 +73,60 @@ export const ontr5 =
         ]
     );
 
+describe('splitArrayOnce', () => {
+
+  test('1', () => {
+    expect(hw.splitArrayOnce([])).toEqual([[],[]]);
+  });
+
+  test('2', () => {
+    expect(hw.splitArrayOnce([1])).toEqual([[1],[]]);
+  });
+
+  test('3', () => {
+    expect(hw.splitArrayOnce(["hello", "world"])).toEqual([ [ 'hello' ], [ 'world' ] ]);
+  });
+
+  test('4', () => {
+    expect(hw.splitArrayOnce(["csc600", "is", "fun"])).toEqual([ [ 'csc600', 'is' ], [ 'fun' ] ]);
+  });
+
+  test('5', () => {
+    expect(hw.splitArrayOnce([3, 2, 1, 4])).toEqual([ [ 3, 2 ], [ 1, 4 ] ]);
+  });
+});
+
+describe('heightNaryTree', () => {
+
+  test('ntr1', () => {
+    expect(hw.heightNaryTree(hw.ntr1)).toBe(0);
+  });
+
+  test('ntr2', () => {
+    expect(hw.heightNaryTree(hw.ntr2)).toBe(1);
+  });
+
+  test('ntr3', () => {
+    expect(hw.heightNaryTree(hw.ntr3)).toBe(2);
+  });
+
+  test('ntr4', () => {
+    expect(hw.heightNaryTree(hw.ntr4)).toBe(2);
+  });
+
+  test('ntr5', () => {
+    expect(hw.heightNaryTree(hw.ntr5)).toBe(5);
+  });
+
+  test('ntr4 = ontr4: ', () => {
+    expect(hw.ntr4).toEqual(ontr4);
+  });
+
+  test('ntr5 = ontr5: ', () => {
+    expect(hw.ntr5).toEqual(ontr5);
+  });
+});
+
 describe('mapNaryTree:', () => {
   // mapNaryTree(ntr1, (x) => x + 1)
   // mapNaryTree(ntr2, (x) => x + 1)
@@ -107,35 +161,4 @@ describe('mapNaryTree:', () => {
     expect(hw.ntr5).toEqual(ontr5);
   });
 
-});
-
-describe('heightNaryTree', () => {
-
-  test('ntr1', () => {
-    expect(hw.heightNaryTree(hw.ntr1)).toBe(0);
-  });
-
-  test('ntr2', () => {
-    expect(hw.heightNaryTree(hw.ntr2)).toBe(1);
-  });
-
-  test('ntr3', () => {
-    expect(hw.heightNaryTree(hw.ntr3)).toBe(2);
-  });
-
-  test('ntr4', () => {
-    expect(hw.heightNaryTree(hw.ntr4)).toBe(2);
-  });
-
-  test('ntr5', () => {
-    expect(hw.heightNaryTree(hw.ntr5)).toBe(5);
-  });
-
-  test('ntr4 = ontr4: ', () => {
-    expect(hw.ntr4).toEqual(ontr4);
-  });
-
-  test('ntr5 = ontr5: ', () => {
-    expect(hw.ntr5).toEqual(ontr5);
-  });
 });
