@@ -329,7 +329,7 @@ Example 5:
 export function splitArray<T>(arr: T[]): NestedArray<T> {
     switch (arr.length) {
         case 0: return mkNALeaf();
-        case 1: return mkNANode(arr.pop() as T, mkNALeaf(), mkNALeaf());
+        // case 1: return mkNANode(arr.pop() as T, mkNALeaf(), mkNALeaf());
         default:
             const arr1 = splitArrayOnce(arr);
             return mkNANode( arr1[0].pop() as T, splitArray(arr1[0]), splitArray(arr1[1]) );

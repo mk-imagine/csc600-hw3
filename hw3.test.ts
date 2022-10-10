@@ -96,6 +96,29 @@ describe('splitArrayOnce', () => {
   });
 });
 
+describe('splitArray', () => {
+
+  test('tr1', () => {
+    expect(hw.splitArray([])).toEqual(hw.tr1);
+  });
+
+  test('tr2', () => {
+    expect(hw.splitArray([1])).toEqual(hw.tr2);
+  });
+
+  test('tr3', () => {
+    expect(hw.splitArray(["hello", "world"])).toEqual(hw.tr3);
+  });
+
+  test('tr4', () => {
+    expect(hw.splitArray(["csc600", "is", "fun"])).toEqual(hw.tr4);
+  });
+
+  test('tr5', () => {
+    expect(hw.splitArray([3, 2, 1, 4])).toEqual(hw.tr5);
+  });
+});
+
 describe('heightNaryTree', () => {
 
   test('ntr1', () => {
