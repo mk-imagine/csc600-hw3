@@ -116,18 +116,18 @@ Example 5:
 
 export function splitArrayOnce<T>(arr: T[]): [T[], T[]] {
     // throw Error("TODO");
-    if (arr.length === 0) {
-        return [[],[]];
-    }
+    // if (arr.length === 0) {
+    //     return [[],[]];
+    // }
     const left = Math.ceil(arr.length/2);
     return [ arr.slice(0,left), arr.slice(left) ];
 }
 
-// console.log(splitArrayOnce([]));
-// console.log(splitArrayOnce([1]));
-// console.log(splitArrayOnce(["hello", "world"]));
-// console.log(splitArrayOnce(["csc600", "is", "fun"]));
-// console.log(splitArrayOnce([3, 2, 1, 4]));
+console.log(splitArrayOnce([]));
+console.log(splitArrayOnce([1]));
+console.log(splitArrayOnce(["hello", "world"]));
+console.log(splitArrayOnce(["csc600", "is", "fun"]));
+console.log(splitArrayOnce([3, 2, 1, 4]));
 
 /* ----------------------------------------------------- **
 ### Problem 1b (10 pts):
